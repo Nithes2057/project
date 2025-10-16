@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Feedback System</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; 
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .rating-group {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        .rating-group input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .rating-group label {
+            font-weight: normal;
+            display: inline-block;
+            margin-right: 15px;
+            color: #666;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+        <h1>Share Your Feedback</h1>
+        
+        <form id="feedbackForm" action="#"> 
+            
+            <label for="name">Name :</label>
+            <input type="text" id="name" name="name">
+            
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email">
+            
+            <label for="rating">Rating:</label>
+            <div class="rating-group">
+                <input type="radio" id="r5" name="rating" value="5" required>
+                <label for="r5">5 Stars (Excellent)</label><br>
+                <input type="radio" id="r4" name="rating" value="4">
+                <label for="r4">4 Stars (Good)</label><br>
+                <input type="radio" id="r3" name="rating" value="3">
+                <label for="r3">3 Stars (Average)</label><br>
+                <input type="radio" id="r2" name="rating" value="2">
+                <label for="r2">2 Stars (Poor)</label><br>
+                <input type="radio" id="r1" name="rating" value="1">
+                <label for="r1">1 Star (Very Poor)</label>
+            </div>
+
+            <label for="comments">Comments:</label>
+            <textarea id="comments" name="comments" rows="5" required></textarea>
+            
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            // Stop the form from performing the default submission (page reload)
+            event.preventDefault();
+
+            // Collect data
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const comments = document.getElementById('comments').value;
+            
+            const selectedRatingElement = document.querySelector('input[name="rating"]:checked');
+            const rating = selectedRatingElement ? selectedRatingElement.value + ' Stars' : 'Not Rated';
+
+            // Prepare the collected feedback data
+            const feedbackData = {
+                Name: name || 'Anonymous',
+                Email: email || 'N/A',
+                Rating: rating,
+                Comments: comments
+            };
+
+            // Display the collected data in an alert box for demonstration
+            alert('Thank you for your feedback!\n\nCollected Data:\n' + JSON.stringify(feedbackData, null, 2));
+            
+            // In a real application, you would replace the alert above with code
+            // to send this data to a server or a third-party service (e.g., Formspree).
+            
+            // Clear the form
+            this.reset();
+        });
+    </script>
+
+</body>
+</html>
